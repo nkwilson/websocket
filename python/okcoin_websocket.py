@@ -6,6 +6,8 @@ import hashlib
 import zlib
 import base64
 
+# import glom
+
 api_key=''
 secret_key = ""
 #business
@@ -137,6 +139,13 @@ def on_open(self):
     #self.send(futureRealTradesMsg)
 def on_message(self,evt):
     print (evt) # just raw data, not compressed
+    target0=eval(evt)
+    print (target0)
+    target=target0[0]
+    print (target.keys(), target.values())
+    # spec={"binary":"binary", "channel":"channel", "data":"data"}
+    # print (spec.keys(), spec.values())
+    # print (glom.glom(target, spec))  # already dict , no need of glom processing 
     #data = inflate(evt) #data decompress
 
 def inflate(data):
