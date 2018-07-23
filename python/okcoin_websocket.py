@@ -92,6 +92,14 @@ def futureRealTrades(api_key,secretkey):
     sign = buildMySign(params,secretkey)
     return "{'event':'addChannel','channel':'ok_sub_futureusd_trades','parameters':{'api_key':'"+api_key+"','sign':'"+sign+"'},'binary':'true'}"
 
+def on_ping(self):
+    print ('ping recv')
+    self.send("{'event':'pong'}")
+
+def on_pong(self):
+    print ('pong recv')
+    self.send("{'event':'ping'}")
+
 def on_open(self):
     #subscribe okcoin.com spot ticker
     #self.send("{'event':'addChannel','channel':'ok_sub_spot_eth_btc_ticker'}")
@@ -99,7 +107,7 @@ def on_open(self):
     #subscribe okcoin.com future this_week ticker
     #self.send("{'event':'addChannel','channel':'ok_sub_spot_bch_btc_ticker'}")
 
-    #self.send("{'event':'ping'}")
+
 
     # can't provide binary parameter
     #self.send("{'event':'addChannel','channel':'ok_sub_spot_eth_btc_kline_1min'}")
@@ -113,8 +121,8 @@ def on_open(self):
     #self.send("{'event':'addChannel','channel':'ok_sub_futureusd_ltc_depth_next_week_20','binary':'true'}")
 
     #subscrib real trades for self
-    #realtradesMsg = realtrades('ok_sub_spotusd_trades',api_key,secret_key)
-    #self.send(realtradesMsg)
+    # realtradesMsg = realtrades('ok_sub_futureusd_btc_kline_quarter_1min',api_key,secret_key)
+    # self.send(realtradesMsg)
 
 
     #spot trade via websocket
@@ -138,11 +146,13 @@ def on_open(self):
     #futureRealTradesMsg = futureRealTrades(api_key,secret_key)
     #self.send(futureRealTradesMsg)
 def on_message(self,evt):
-    # print (evt) # just raw data, not compressed
+    print (evt) # just raw data, not compressed
     # target0=eval(evt)
     # print (target0)
     # target=target0[0]
     # print (target.keys(), target.values())
+    target=eval(evt)[0]
+    print (target['data'])
     # spec={"binary":"binary", "channel":"channel", "data":"data"}
     # print (spec.keys(), spec.values())
     # print (glom.glom(target, spec))  # already dict , no need of glom processing 
@@ -162,7 +172,7 @@ def inflate(data):
 def on_error(self,evt):
     print (evt)
 
-def on_close(self,evt):
+def on_close(self):
     print ('DISCONNECT')
 
 if __name__ == "__main__":
@@ -185,6 +195,10 @@ if __name__ == "__main__":
                                 on_error = on_error,
                                 on_close = on_close)
     ws.on_open = on_open
-    ws.ping_interval=30
-    ws.ping_timeout=30
+    ws.on_ping = on_ping
+    ws.on_pong = on_pong
+
+    ws.ping_interval=28
+    ws.ping_timeout=60
+
     ws.run_forever()
