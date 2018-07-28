@@ -110,7 +110,7 @@ def on_open(self):
 
 
     # can't provide binary parameter
-    #self.send("{'event':'addChannel','channel':'ok_sub_spot_eth_btc_kline_1min'}")
+    # self.send("{'event':'addChannel','channel':'ok_sub_spot_eth_btc_kline_1min'}")
     # Returned Value Description
     # [time, open price, highest price, lowest price, close price, volume]
     # [string, string, string, string, string, string]
@@ -146,7 +146,7 @@ def on_open(self):
     #futureRealTradesMsg = futureRealTrades(api_key,secret_key)
     #self.send(futureRealTradesMsg)
 def on_message(self,evt):
-    print (evt) # just raw data, not compressed
+    #print (evt) # just raw data, not compressed
     # target0=eval(evt)
     # print (target0)
     # target=target0[0]
@@ -157,6 +157,8 @@ def on_message(self,evt):
     # print (spec.keys(), spec.values())
     # print (glom.glom(target, spec))  # already dict , no need of glom processing 
     #data = inflate(evt) #data decompress
+    self.send("{'event':'ping'}")
+    self.send("{'event':'pong'}")    
 
 def inflate(data):
     print ('inflate', data)
