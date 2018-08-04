@@ -179,7 +179,7 @@ def on_message(self,evt):
     print (data) # show every message
 
     os.makedirs(channel, exist_ok=True)
-    with open(channel+'/'+data[0], 'a') as f:
+    with open(channel+'/'+data[0], 'w') as f:
         f.write(str(data[1:])[1:-1] +"\n")
     # spec={"binary":"binary", "channel":"channel", "data":"data"}
     # print (spec.keys(), spec.values())
