@@ -5,7 +5,7 @@ import json
 import hashlib
 import zlib
 import base64
-
+import os
 # import glom
 
 api_key=''
@@ -54,6 +54,7 @@ def realtrades(channel,api_key,secretkey):
    return "{'event':'addChannel','channel':'"+channel+"','parameters':{'api_key':'"+api_key+"','sign':'"+sign+"'},'binary':'true'}"
 
 # trade for future
+# 28/07/2018, ok_futuresusd_trade/ok_sub_futureusd_btc_trade_quarter is not valid channel
 def futureTrade(api_key,secretkey,symbol,contractType,price='',amount='',tradeType='',matchPrice='',leverRate=''):
     params = {
       'api_key':api_key,
@@ -67,7 +68,9 @@ def futureTrade(api_key,secretkey,symbol,contractType,price='',amount='',tradeTy
     if price:
         params['price'] = price
     sign = buildMySign(params,secretkey)
-    finalStr = "{'event':'addChannel','channel':'ok_futuresusd_trade','parameters':{'api_key':'"+api_key+"',\
+    
+    # finalStr = "{'event':'addChannel','channel':'ok_futuresusd_trade','parameters':{'api_key':'"+api_key+"',\
+    finalStr = "{'event':'addChannel','channel':'ok_sub_futureusd_btc_trade_quarter','parameters':{'api_key':'"+api_key+"',\
                'sign':'"+sign+"','symbol':'"+symbol+"','contract_type':'"+contractType+"'"
     if price:
         finalStr += ",'price':'"+price+"'"
@@ -90,13 +93,25 @@ def futureCancelOrder(api_key,secretkey,symbol,orderId,contractType):
 def futureRealTrades(api_key,secretkey):
     params = {'api_key':api_key}
     sign = buildMySign(params,secretkey)
-    return "{'event':'addChannel','channel':'ok_sub_futureusd_trades','parameters':{'api_key':'"+api_key+"','sign':'"+sign+"'},'binary':'true'}"
+    return "{'event':'addChannel','channel':'ok_sub_futureusd_trades','parameters':{'api_key':'"+api_key+"','sign':'"+sign+"'}}"
 
-def on_ping(self):
+# subscrbe future user info, with userful info return
+def futureUserInfo(api_key, secretkey):
+    params = {'api_key':api_key}
+    sign = buildMySign(params, secretkey)
+    return "{'event':'addChannel','channel':'ok_futureusd_userinfo','parameters':{'api_key':'"+api_key+"','sign':'"+sign+"'}}"
+
+# subscrbe future user info, no userful info return
+def futureUserInfo2(api_key, secretkey):
+    params = {'api_key':api_key}
+    sign = buildMySign(params, secretkey)
+    return "{'event':'addChannel','channel':'ok_sub_futureusd_userinfo','parameters':{'api_key':'"+api_key+"','sign':'"+sign+"'}}"
+
+def on_ping(self, evt):
     print ('ping recv')
     self.send("{'event':'pong'}")
 
-def on_pong(self):
+def on_pong(self, evt):
     print ('pong recv')
     self.send("{'event':'ping'}")
 
@@ -117,6 +132,7 @@ def on_open(self):
 
     # subscribe future kline
     self.send("{'event':'addChannel','channel':'ok_sub_futureusd_btc_kline_quarter_1min'}")
+    kline_period=60000 # 1minute, in milisecond
     #subscribe okcoin.com future depth
     #self.send("{'event':'addChannel','channel':'ok_sub_futureusd_ltc_depth_next_week_20','binary':'true'}")
 
@@ -135,7 +151,7 @@ def on_open(self):
     #self.send(spotCancelOrderMsg)
 
     #future trade
-    #futureTradeMsg = futureTrade(api_key,secret_key,'btc_usd','this_week','','2','1','1','20')
+    #futureTradeMsg = futureTrade(api_key,secret_key,'btc_usd','quarter','','2','1','1','10')
     #self.send(futureTradeMsg)
 
     #future trade cancel
@@ -145,20 +161,31 @@ def on_open(self):
     #subscrbe future trades for self
     #futureRealTradesMsg = futureRealTrades(api_key,secret_key)
     #self.send(futureRealTradesMsg)
+
+    # subscrbe future user info
+    #futureUserInfoMsg = futureUserInfo(api_key, secret_key)
+    #futureUserInfoMsg = futureUserInfo2(api_key, secret_key)
+    #self.send(futureUserInfoMsg)
+
 def on_message(self,evt):
-    #print (evt) # just raw data, not compressed
-    # target0=eval(evt)
-    # print (target0)
-    # target=target0[0]
-    # print (target.keys(), target.values())
-    target=eval(evt)[0]
-    print (target['data'])
+    #print (evt, type(t)) # just raw data, not compressed
+    target=eval(evt) # convert str to its real type
+    if isinstance(target, dict):
+        next_ticker=0
+        return
+
+    #print (target, type(target), type(target[0]))
+    channel=target[0]['channel']
+    data=target[0]['data'][0] # get list type of data
+    print (data) # show every message
+
+    os.makedirs(channel, exist_ok=True)
+    with open(channel+'/'+data[0], 'a') as f:
+        f.write(str(data[1:])[1:-1] +"\n")
     # spec={"binary":"binary", "channel":"channel", "data":"data"}
     # print (spec.keys(), spec.values())
     # print (glom.glom(target, spec))  # already dict , no need of glom processing 
     #data = inflate(evt) #data decompress
-    self.send("{'event':'ping'}")
-    self.send("{'event':'pong'}")    
 
 def inflate(data):
     print ('inflate', data)
@@ -203,4 +230,4 @@ if __name__ == "__main__":
     ws.ping_interval=28
     ws.ping_timeout=60
 
-    ws.run_forever()
+    ws.run_forever(ping_interval=30, ping_timeout=60)
