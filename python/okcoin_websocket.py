@@ -132,7 +132,6 @@ def on_open(self):
 
     # subscribe future kline
     self.send("{'event':'addChannel','channel':'ok_sub_futureusd_btc_kline_quarter_1min'}")
-    kline_period=60000 # 1minute, in milisecond
     #subscribe okcoin.com future depth
     #self.send("{'event':'addChannel','channel':'ok_sub_futureusd_ltc_depth_next_week_20','binary':'true'}")
 
