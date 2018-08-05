@@ -130,8 +130,17 @@ def on_open(self):
     # [time, open price, highest price, lowest price, close price, volume]
     # [string, string, string, string, string, string]
 
-    # subscribe future kline
+    # subscribe future kline 1min, 3min, 5min, 15min, 30min, 1hour, 2hour, 4hour, 6hour, 12hour, day, 3day, week
     self.send("{'event':'addChannel','channel':'ok_sub_futureusd_btc_kline_quarter_1min'}")
+    self.send("{'event':'addChannel','channel':'ok_sub_futureusd_btc_kline_quarter_5min'}")
+    self.send("{'event':'addChannel','channel':'ok_sub_futureusd_btc_kline_quarter_15min'}")
+    self.send("{'event':'addChannel','channel':'ok_sub_futureusd_btc_kline_quarter_30min'}")
+    self.send("{'event':'addChannel','channel':'ok_sub_futureusd_btc_kline_quarter_1hour'}")
+    self.send("{'event':'addChannel','channel':'ok_sub_futureusd_btc_kline_quarter_2hour'}")
+    self.send("{'event':'addChannel','channel':'ok_sub_futureusd_btc_kline_quarter_4hour'}")    
+    self.send("{'event':'addChannel','channel':'ok_sub_futureusd_btc_kline_quarter_6hour'}")
+    self.send("{'event':'addChannel','channel':'ok_sub_futureusd_btc_kline_quarter_12hour'}")
+    self.send("{'event':'addChannel','channel':'ok_sub_futureusd_btc_kline_quarter_day'}")
     #subscribe okcoin.com future depth
     #self.send("{'event':'addChannel','channel':'ok_sub_futureusd_ltc_depth_next_week_20','binary':'true'}")
 
@@ -176,7 +185,7 @@ def on_message(self,evt):
     #print (target, type(target), type(target[0]))
     channel=target[0]['channel']
     data=target[0]['data'][0] # get list type of data
-    print (data) # show every message
+    print (channel, data) # show every message
 
     os.makedirs(channel, exist_ok=True)
     with open(channel+'/'+data[0], 'w') as f:
@@ -218,15 +227,17 @@ if __name__ == "__main__":
         print ('Run standalone')
     else:
         host = sys.argv[1]
-    ws = websocket.WebSocketApp(host,
-                                on_message = on_message,
-                                on_error = on_error,
-                                on_close = on_close)
-    ws.on_open = on_open
-    ws.on_ping = on_ping
-    ws.on_pong = on_pong
-
-    ws.ping_interval=28
-    ws.ping_timeout=60
-
-    ws.run_forever(ping_interval=30, ping_timeout=60)
+    # run for ever 
+    while True:
+        ws = websocket.WebSocketApp(host,
+                                    on_message = on_message,
+                                    on_error = on_error,
+                                    on_close = on_close)
+        ws.on_open = on_open
+        ws.on_ping = on_ping
+        ws.on_pong = on_pong
+        
+        ws.ping_interval=28
+        ws.ping_timeout=60
+        
+        ws.run_forever(ping_interval=30, ping_timeout=60)
