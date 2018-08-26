@@ -195,11 +195,15 @@ def on_message(self,evt):
     print (channel, data[0]) # show every message
     if os.path.isdir(channel) == False:
         os.makedirs(channel, exist_ok=True)
-    with open(channel+'/'+data[0], 'w') as f:
+    price_filename = os.path.join(os.getcwd(), channel, data[0])
+    #print (price_filename)
+    with open(price_filename, 'w') as f:
         f.write(str(data[1:])[1:-1] +"\n")
     # send out price notify signal
-    with open('%s%s' % (channel, price_notify_suffix), 'w') as f:
-        f.write(data[0])
+    price_notify_filename = os.path.join(os.getcwd(), '%s%s' % (channel, price_notify_suffix))
+    #print (price_notify_filename)
+    with open(price_notify_filename, 'w') as f:
+        f.write(price_filename)
     # spec={"binary":"binary", "channel":"channel", "data":"data"}
     # print (spec.keys(), spec.values())
     # print (glom.glom(target, spec))  # already dict , no need of glom processing 
