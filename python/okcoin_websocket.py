@@ -181,6 +181,7 @@ def on_open(self):
     #futureUserInfoMsg = futureUserInfo2(api_key, secret_key)
     #self.send(futureUserInfoMsg)
 
+price_notify_suffix = '.price_notify'
 def on_message(self,evt):
     #print (evt, type(t)) # just raw data, not compressed
     target=eval(evt) # convert str to its real type
@@ -196,6 +197,9 @@ def on_message(self,evt):
     os.makedirs(channel, exist_ok=True)
     with open(channel+'/'+data[0], 'w') as f:
         f.write(str(data[1:])[1:-1] +"\n")
+    # send out price notify signal
+    with open('%s%s' % (channel, price_notify_suffix), 'w') as f:
+        f.write(data[0])
     # spec={"binary":"binary", "channel":"channel", "data":"data"}
     # print (spec.keys(), spec.values())
     # print (glom.glom(target, spec))  # already dict , no need of glom processing 
