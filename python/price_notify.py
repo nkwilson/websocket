@@ -210,7 +210,7 @@ def on_message(self,evt):
     #print (target, type(target), type(target[0]))
     channel=target[0]['channel']
     data=target[0]['data'][0] # get list type of data
-    print (channel, data[0]) # show every message
+    print (channel.ljust(48), data[0]) # show every message
     if os.path.isdir(channel) == False:
         os.makedirs(channel, exist_ok=True)
     price_filename = os.path.join(os.getcwd(), channel, data[0])
