@@ -200,6 +200,7 @@ def on_open(self):
 
 price_notify_suffix = '.price_notify'
 def on_message(self,evt):
+    evt = inflate(evt).decode() #data decompress
     #print (evt, type(t)) # just raw data, not compressed
     target=eval(evt) # convert str to its real type
     if isinstance(target, dict):
@@ -216,25 +217,27 @@ def on_message(self,evt):
     #print (price_filename)
     with open(price_filename, 'w') as f:
         f.write(str(data[1:])[1:-1] +"\n")
+        f.close()
     # send out price notify signal
     price_notify_filename = os.path.join(os.getcwd(), '%s%s' % (channel, price_notify_suffix))
     #print (price_notify_filename)
     with open(price_notify_filename, 'w') as f:
         f.write(price_filename)
+        f.close()
     # spec={"binary":"binary", "channel":"channel", "data":"data"}
     # print (spec.keys(), spec.values())
     # print (glom.glom(target, spec))  # already dict , no need of glom processing 
     #data = inflate(evt) #data decompress
 
 def inflate(data):
-    print ('inflate', data)
+    #print ('inflate', data)
     decompress = zlib.decompressobj(
             -zlib.MAX_WBITS  # see above
     )
     inflated = decompress.decompress(data)
-    print ('after decompress')
+    #print ('after decompress')
     inflated += decompress.flush()
-    print (inflated)
+    #print (inflated)
     return inflated
 
 def on_error(self,evt):
