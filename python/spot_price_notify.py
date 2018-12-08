@@ -178,7 +178,8 @@ def on_open(self):
 
 price_notify_suffix = '.price_notify'
 def on_message(self,evt):
-    #print (evt, type(t)) # just raw data, not compressed
+    evt = inflate(evt)
+    #print (evt, type(evt)) # just raw data, not compressed
     target=eval(evt) # convert str to its real type
     if isinstance(target, dict):
         next_ticker=0
@@ -205,14 +206,14 @@ def on_message(self,evt):
     #data = inflate(evt) #data decompress
 
 def inflate(data):
-    print ('inflate', data)
+    # print ('inflate', data)
     decompress = zlib.decompressobj(
             -zlib.MAX_WBITS  # see above
     )
     inflated = decompress.decompress(data)
-    print ('after decompress')
+    # print ('after decompress')
     inflated += decompress.flush()
-    print (inflated)
+    # print (inflated)
     return inflated
 
 def on_error(self,evt):
