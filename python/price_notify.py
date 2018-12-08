@@ -133,36 +133,47 @@ def on_open(self):
     # subscribe future kline 1min, 3min, 5min, 15min, 30min, 1hour, 2hour, 4hour, 6hour, 12hour, day, 3day, week
     self.send("{'event':'addChannel','channel':'ok_sub_futureusd_btc_kline_quarter_1min'}")
     self.send("{'event':'addChannel','channel':'ok_sub_futureusd_btc_kline_quarter_5min'}")
-    self.send("{'event':'addChannel','channel':'ok_sub_futureusd_btc_kline_quarter_15min'}")
-    self.send("{'event':'addChannel','channel':'ok_sub_futureusd_btc_kline_quarter_30min'}")
+    #self.send("{'event':'addChannel','channel':'ok_sub_futureusd_btc_kline_quarter_15min'}")
+    #self.send("{'event':'addChannel','channel':'ok_sub_futureusd_btc_kline_quarter_30min'}")
     self.send("{'event':'addChannel','channel':'ok_sub_futureusd_btc_kline_quarter_1hour'}")
-    self.send("{'event':'addChannel','channel':'ok_sub_futureusd_btc_kline_quarter_2hour'}")
+    #self.send("{'event':'addChannel','channel':'ok_sub_futureusd_btc_kline_quarter_2hour'}")
     self.send("{'event':'addChannel','channel':'ok_sub_futureusd_btc_kline_quarter_4hour'}")    
-    self.send("{'event':'addChannel','channel':'ok_sub_futureusd_btc_kline_quarter_6hour'}")
+    #self.send("{'event':'addChannel','channel':'ok_sub_futureusd_btc_kline_quarter_6hour'}")
     self.send("{'event':'addChannel','channel':'ok_sub_futureusd_btc_kline_quarter_12hour'}")
     self.send("{'event':'addChannel','channel':'ok_sub_futureusd_btc_kline_quarter_day'}")
 
     self.send("{'event':'addChannel','channel':'ok_sub_futureusd_ltc_kline_quarter_1min'}")
     self.send("{'event':'addChannel','channel':'ok_sub_futureusd_ltc_kline_quarter_5min'}")
-    self.send("{'event':'addChannel','channel':'ok_sub_futureusd_ltc_kline_quarter_15min'}")
-    self.send("{'event':'addChannel','channel':'ok_sub_futureusd_ltc_kline_quarter_30min'}")
+    #self.send("{'event':'addChannel','channel':'ok_sub_futureusd_ltc_kline_quarter_15min'}")
+    #self.send("{'event':'addChannel','channel':'ok_sub_futureusd_ltc_kline_quarter_30min'}")
     self.send("{'event':'addChannel','channel':'ok_sub_futureusd_ltc_kline_quarter_1hour'}")
-    self.send("{'event':'addChannel','channel':'ok_sub_futureusd_ltc_kline_quarter_2hour'}")
+    #self.send("{'event':'addChannel','channel':'ok_sub_futureusd_ltc_kline_quarter_2hour'}")
     self.send("{'event':'addChannel','channel':'ok_sub_futureusd_ltc_kline_quarter_4hour'}")
-    self.send("{'event':'addChannel','channel':'ok_sub_futureusd_ltc_kline_quarter_6hour'}")
+    #self.send("{'event':'addChannel','channel':'ok_sub_futureusd_ltc_kline_quarter_6hour'}")
     self.send("{'event':'addChannel','channel':'ok_sub_futureusd_ltc_kline_quarter_12hour'}")
     self.send("{'event':'addChannel','channel':'ok_sub_futureusd_ltc_kline_quarter_day'}")
 
     self.send("{'event':'addChannel','channel':'ok_sub_futureusd_bch_kline_quarter_1min'}")
     self.send("{'event':'addChannel','channel':'ok_sub_futureusd_bch_kline_quarter_5min'}")    
-    self.send("{'event':'addChannel','channel':'ok_sub_futureusd_bch_kline_quarter_15min'}")
-    self.send("{'event':'addChannel','channel':'ok_sub_futureusd_bch_kline_quarter_30min'}")        
+    #self.send("{'event':'addChannel','channel':'ok_sub_futureusd_bch_kline_quarter_15min'}")
+    #self.send("{'event':'addChannel','channel':'ok_sub_futureusd_bch_kline_quarter_30min'}")        
     self.send("{'event':'addChannel','channel':'ok_sub_futureusd_bch_kline_quarter_1hour'}")
-    self.send("{'event':'addChannel','channel':'ok_sub_futureusd_bch_kline_quarter_2hour'}")
+    #self.send("{'event':'addChannel','channel':'ok_sub_futureusd_bch_kline_quarter_2hour'}")
     self.send("{'event':'addChannel','channel':'ok_sub_futureusd_bch_kline_quarter_4hour'}")    
-    self.send("{'event':'addChannel','channel':'ok_sub_futureusd_bch_kline_quarter_6hour'}")
+    #self.send("{'event':'addChannel','channel':'ok_sub_futureusd_bch_kline_quarter_6hour'}")
     self.send("{'event':'addChannel','channel':'ok_sub_futureusd_bch_kline_quarter_12hour'}")
     self.send("{'event':'addChannel','channel':'ok_sub_futureusd_bch_kline_quarter_day'}")
+
+    self.send("{'event':'addChannel','channel':'ok_sub_futureusd_eth_kline_quarter_1min'}")
+    self.send("{'event':'addChannel','channel':'ok_sub_futureusd_eth_kline_quarter_5min'}")    
+    #self.send("{'event':'addChannel','channel':'ok_sub_futureusd_eth_kline_quarter_15min'}")
+    #self.send("{'event':'addChannel','channel':'ok_sub_futureusd_eth_kline_quarter_30min'}")        
+    self.send("{'event':'addChannel','channel':'ok_sub_futureusd_eth_kline_quarter_1hour'}")
+    #self.send("{'event':'addChannel','channel':'ok_sub_futureusd_eth_kline_quarter_2hour'}")
+    self.send("{'event':'addChannel','channel':'ok_sub_futureusd_eth_kline_quarter_4hour'}")    
+    #self.send("{'event':'addChannel','channel':'ok_sub_futureusd_eth_kline_quarter_6hour'}")
+    self.send("{'event':'addChannel','channel':'ok_sub_futureusd_eth_kline_quarter_12hour'}")
+    self.send("{'event':'addChannel','channel':'ok_sub_futureusd_eth_kline_quarter_day'}")
 
     #subscribe okcoin.com future depth
     #self.send("{'event':'addChannel','channel':'ok_sub_futureusd_ltc_depth_next_week_20','binary':'true'}")
@@ -200,6 +211,7 @@ def on_open(self):
 
 price_notify_suffix = '.price_notify'
 def on_message(self,evt):
+    evt = inflate(evt).decode() #data decompress
     #print (evt, type(t)) # just raw data, not compressed
     target=eval(evt) # convert str to its real type
     if isinstance(target, dict):
@@ -209,32 +221,34 @@ def on_message(self,evt):
     #print (target, type(target), type(target[0]))
     channel=target[0]['channel']
     data=target[0]['data'][0] # get list type of data
-    print (channel, data[0]) # show every message
+    print (channel.ljust(48), data[0]) # show every message
     if os.path.isdir(channel) == False:
         os.makedirs(channel, exist_ok=True)
     price_filename = os.path.join(os.getcwd(), channel, data[0])
     #print (price_filename)
     with open(price_filename, 'w') as f:
         f.write(str(data[1:])[1:-1] +"\n")
+        f.close()
     # send out price notify signal
     price_notify_filename = os.path.join(os.getcwd(), '%s%s' % (channel, price_notify_suffix))
     #print (price_notify_filename)
     with open(price_notify_filename, 'w') as f:
         f.write(price_filename)
+        f.close()
     # spec={"binary":"binary", "channel":"channel", "data":"data"}
     # print (spec.keys(), spec.values())
     # print (glom.glom(target, spec))  # already dict , no need of glom processing 
     #data = inflate(evt) #data decompress
 
 def inflate(data):
-    print ('inflate', data)
+    #print ('inflate', data)
     decompress = zlib.decompressobj(
             -zlib.MAX_WBITS  # see above
     )
     inflated = decompress.decompress(data)
-    print ('after decompress')
+    #print ('after decompress')
     inflated += decompress.flush()
-    print (inflated)
+    #print (inflated)
     return inflated
 
 def on_error(self,evt):
