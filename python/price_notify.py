@@ -116,13 +116,12 @@ def on_pong(self, evt):
     self.send("{'event':'ping'}")
 
 def on_open(self):
+    global options
     #subscribe okcoin.com spot ticker
     #self.send("{'event':'addChannel','channel':'ok_sub_spot_eth_btc_ticker'}")
 
     #subscribe okcoin.com future this_week ticker
     #self.send("{'event':'addChannel','channel':'ok_sub_spot_bch_btc_ticker'}")
-
-
 
     # can't provide binary parameter
     # self.send("{'event':'addChannel','channel':'ok_sub_spot_eth_btc_kline_1min'}")
@@ -131,49 +130,53 @@ def on_open(self):
     # [string, string, string, string, string, string]
 
     # subscribe future kline 1min, 3min, 5min, 15min, 30min, 1hour, 2hour, 4hour, 6hour, 12hour, day, 3day, week
-    self.send("{'event':'addChannel','channel':'ok_sub_futureusd_btc_kline_quarter_1min'}")
-    self.send("{'event':'addChannel','channel':'ok_sub_futureusd_btc_kline_quarter_5min'}")
-    #self.send("{'event':'addChannel','channel':'ok_sub_futureusd_btc_kline_quarter_15min'}")
-    #self.send("{'event':'addChannel','channel':'ok_sub_futureusd_btc_kline_quarter_30min'}")
-    self.send("{'event':'addChannel','channel':'ok_sub_futureusd_btc_kline_quarter_1hour'}")
-    #self.send("{'event':'addChannel','channel':'ok_sub_futureusd_btc_kline_quarter_2hour'}")
-    self.send("{'event':'addChannel','channel':'ok_sub_futureusd_btc_kline_quarter_4hour'}")    
-    #self.send("{'event':'addChannel','channel':'ok_sub_futureusd_btc_kline_quarter_6hour'}")
-    self.send("{'event':'addChannel','channel':'ok_sub_futureusd_btc_kline_quarter_12hour'}")
-    self.send("{'event':'addChannel','channel':'ok_sub_futureusd_btc_kline_quarter_day'}")
+    if 'btc' in options.coin:
+        self.send("{'event':'addChannel','channel':'ok_sub_futureusd_btc_kline_quarter_1min'}")
+        self.send("{'event':'addChannel','channel':'ok_sub_futureusd_btc_kline_quarter_5min'}")
+        #self.send("{'event':'addChannel','channel':'ok_sub_futureusd_btc_kline_quarter_15min'}")
+        #self.send("{'event':'addChannel','channel':'ok_sub_futureusd_btc_kline_quarter_30min'}")
+        self.send("{'event':'addChannel','channel':'ok_sub_futureusd_btc_kline_quarter_1hour'}")
+        #self.send("{'event':'addChannel','channel':'ok_sub_futureusd_btc_kline_quarter_2hour'}")
+        self.send("{'event':'addChannel','channel':'ok_sub_futureusd_btc_kline_quarter_4hour'}")    
+        #self.send("{'event':'addChannel','channel':'ok_sub_futureusd_btc_kline_quarter_6hour'}")
+        self.send("{'event':'addChannel','channel':'ok_sub_futureusd_btc_kline_quarter_12hour'}")
+        self.send("{'event':'addChannel','channel':'ok_sub_futureusd_btc_kline_quarter_day'}")
 
-    self.send("{'event':'addChannel','channel':'ok_sub_futureusd_ltc_kline_quarter_1min'}")
-    self.send("{'event':'addChannel','channel':'ok_sub_futureusd_ltc_kline_quarter_5min'}")
-    #self.send("{'event':'addChannel','channel':'ok_sub_futureusd_ltc_kline_quarter_15min'}")
-    #self.send("{'event':'addChannel','channel':'ok_sub_futureusd_ltc_kline_quarter_30min'}")
-    self.send("{'event':'addChannel','channel':'ok_sub_futureusd_ltc_kline_quarter_1hour'}")
-    #self.send("{'event':'addChannel','channel':'ok_sub_futureusd_ltc_kline_quarter_2hour'}")
-    self.send("{'event':'addChannel','channel':'ok_sub_futureusd_ltc_kline_quarter_4hour'}")
-    #self.send("{'event':'addChannel','channel':'ok_sub_futureusd_ltc_kline_quarter_6hour'}")
-    self.send("{'event':'addChannel','channel':'ok_sub_futureusd_ltc_kline_quarter_12hour'}")
-    self.send("{'event':'addChannel','channel':'ok_sub_futureusd_ltc_kline_quarter_day'}")
+    if 'ltc' in options.coin:
+        self.send("{'event':'addChannel','channel':'ok_sub_futureusd_ltc_kline_quarter_1min'}")
+        self.send("{'event':'addChannel','channel':'ok_sub_futureusd_ltc_kline_quarter_5min'}")
+        #self.send("{'event':'addChannel','channel':'ok_sub_futureusd_ltc_kline_quarter_15min'}")
+        #self.send("{'event':'addChannel','channel':'ok_sub_futureusd_ltc_kline_quarter_30min'}")
+        self.send("{'event':'addChannel','channel':'ok_sub_futureusd_ltc_kline_quarter_1hour'}")
+        #self.send("{'event':'addChannel','channel':'ok_sub_futureusd_ltc_kline_quarter_2hour'}")
+        self.send("{'event':'addChannel','channel':'ok_sub_futureusd_ltc_kline_quarter_4hour'}")
+        #self.send("{'event':'addChannel','channel':'ok_sub_futureusd_ltc_kline_quarter_6hour'}")
+        self.send("{'event':'addChannel','channel':'ok_sub_futureusd_ltc_kline_quarter_12hour'}")
+        self.send("{'event':'addChannel','channel':'ok_sub_futureusd_ltc_kline_quarter_day'}")
 
-    self.send("{'event':'addChannel','channel':'ok_sub_futureusd_bch_kline_quarter_1min'}")
-    self.send("{'event':'addChannel','channel':'ok_sub_futureusd_bch_kline_quarter_5min'}")    
-    #self.send("{'event':'addChannel','channel':'ok_sub_futureusd_bch_kline_quarter_15min'}")
-    #self.send("{'event':'addChannel','channel':'ok_sub_futureusd_bch_kline_quarter_30min'}")        
-    self.send("{'event':'addChannel','channel':'ok_sub_futureusd_bch_kline_quarter_1hour'}")
-    #self.send("{'event':'addChannel','channel':'ok_sub_futureusd_bch_kline_quarter_2hour'}")
-    self.send("{'event':'addChannel','channel':'ok_sub_futureusd_bch_kline_quarter_4hour'}")    
-    #self.send("{'event':'addChannel','channel':'ok_sub_futureusd_bch_kline_quarter_6hour'}")
-    self.send("{'event':'addChannel','channel':'ok_sub_futureusd_bch_kline_quarter_12hour'}")
-    self.send("{'event':'addChannel','channel':'ok_sub_futureusd_bch_kline_quarter_day'}")
+    if 'bch' in options.coin:
+        self.send("{'event':'addChannel','channel':'ok_sub_futureusd_bch_kline_quarter_1min'}")
+        self.send("{'event':'addChannel','channel':'ok_sub_futureusd_bch_kline_quarter_5min'}")    
+        #self.send("{'event':'addChannel','channel':'ok_sub_futureusd_bch_kline_quarter_15min'}")
+        #self.send("{'event':'addChannel','channel':'ok_sub_futureusd_bch_kline_quarter_30min'}")        
+        self.send("{'event':'addChannel','channel':'ok_sub_futureusd_bch_kline_quarter_1hour'}")
+        #self.send("{'event':'addChannel','channel':'ok_sub_futureusd_bch_kline_quarter_2hour'}")
+        self.send("{'event':'addChannel','channel':'ok_sub_futureusd_bch_kline_quarter_4hour'}")    
+        #self.send("{'event':'addChannel','channel':'ok_sub_futureusd_bch_kline_quarter_6hour'}")
+        self.send("{'event':'addChannel','channel':'ok_sub_futureusd_bch_kline_quarter_12hour'}")
+        self.send("{'event':'addChannel','channel':'ok_sub_futureusd_bch_kline_quarter_day'}")
 
-    self.send("{'event':'addChannel','channel':'ok_sub_futureusd_eth_kline_quarter_1min'}")
-    self.send("{'event':'addChannel','channel':'ok_sub_futureusd_eth_kline_quarter_5min'}")    
-    #self.send("{'event':'addChannel','channel':'ok_sub_futureusd_eth_kline_quarter_15min'}")
-    #self.send("{'event':'addChannel','channel':'ok_sub_futureusd_eth_kline_quarter_30min'}")        
-    self.send("{'event':'addChannel','channel':'ok_sub_futureusd_eth_kline_quarter_1hour'}")
-    #self.send("{'event':'addChannel','channel':'ok_sub_futureusd_eth_kline_quarter_2hour'}")
-    self.send("{'event':'addChannel','channel':'ok_sub_futureusd_eth_kline_quarter_4hour'}")    
-    #self.send("{'event':'addChannel','channel':'ok_sub_futureusd_eth_kline_quarter_6hour'}")
-    self.send("{'event':'addChannel','channel':'ok_sub_futureusd_eth_kline_quarter_12hour'}")
-    self.send("{'event':'addChannel','channel':'ok_sub_futureusd_eth_kline_quarter_day'}")
+    if 'eth' in options.coin:
+        self.send("{'event':'addChannel','channel':'ok_sub_futureusd_eth_kline_quarter_1min'}")
+        self.send("{'event':'addChannel','channel':'ok_sub_futureusd_eth_kline_quarter_5min'}")    
+        #self.send("{'event':'addChannel','channel':'ok_sub_futureusd_eth_kline_quarter_15min'}")
+        #self.send("{'event':'addChannel','channel':'ok_sub_futureusd_eth_kline_quarter_30min'}")        
+        self.send("{'event':'addChannel','channel':'ok_sub_futureusd_eth_kline_quarter_1hour'}")
+        #self.send("{'event':'addChannel','channel':'ok_sub_futureusd_eth_kline_quarter_2hour'}")
+        self.send("{'event':'addChannel','channel':'ok_sub_futureusd_eth_kline_quarter_4hour'}")    
+        #self.send("{'event':'addChannel','channel':'ok_sub_futureusd_eth_kline_quarter_6hour'}")
+        self.send("{'event':'addChannel','channel':'ok_sub_futureusd_eth_kline_quarter_12hour'}")
+        self.send("{'event':'addChannel','channel':'ok_sub_futureusd_eth_kline_quarter_day'}")
 
     #subscribe okcoin.com future depth
     #self.send("{'event':'addChannel','channel':'ok_sub_futureusd_ltc_depth_next_week_20','binary':'true'}")
@@ -258,6 +261,16 @@ def on_close(self):
     print ('DISCONNECT')
 
 if __name__ == "__main__":
+    global options
+    from optparse import OptionParser
+    parser = OptionParser()
+    parser.add_option('', '--coin', dest='coin', default=[],
+                      action='append',
+                      help='specify coin listener')
+    (options, args) = parser.parse_args()
+    print (type(options), options, args)
+    if options.coin == '':
+        options.coin = ['btc', 'eth', 'ltc']
 #    url = "wss://real.okcoin.com:10440/websocket/okcoinapi"      #if okcoin.cn  change url wss://real.okcoin.cn:10440/websocket/okcoinapi
 #    api_key='your api_key which you apply'
 #    secret_key = "your secret_key which you apply"
@@ -267,14 +280,11 @@ if __name__ == "__main__":
     secret_key = "27BD16FD606625BCD4EE6DCA5A8459CE"
     
     websocket.enableTrace(False)
-    if len(sys.argv) < 2:
-        host = url
-        print ('Run standalone')
-    else:
-        host = sys.argv[1]
+    host = url
+    
     # run for ever 
     while True:
-        ws = websocket.WebSocketApp(host,
+        ws = websocket.WebSocketApp(url,
                                     on_message = on_message,
                                     on_error = on_error,
                                     on_close = on_close)
