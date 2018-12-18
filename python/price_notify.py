@@ -178,6 +178,18 @@ def on_open(self):
         self.send("{'event':'addChannel','channel':'ok_sub_futureusd_eth_kline_quarter_12hour'}")
         self.send("{'event':'addChannel','channel':'ok_sub_futureusd_eth_kline_quarter_day'}")
 
+    if 'eos' in options.coin:
+        self.send("{'event':'addChannel','channel':'ok_sub_futureusd_eos_kline_quarter_1min'}")
+        self.send("{'event':'addChannel','channel':'ok_sub_futureusd_eos_kline_quarter_5min'}")
+        #self.send("{'event':'addChannel','channel':'ok_sub_futureusd_eos_kline_quarter_15min'}")
+        #self.send("{'event':'addChannel','channel':'ok_sub_futureusd_eos_kline_quarter_30min'}")
+        self.send("{'event':'addChannel','channel':'ok_sub_futureusd_eos_kline_quarter_1hour'}")
+        #self.send("{'event':'addChannel','channel':'ok_sub_futureusd_eos_kline_quarter_2hour'}")
+        self.send("{'event':'addChannel','channel':'ok_sub_futureusd_eos_kline_quarter_4hour'}")    
+        #self.send("{'event':'addChannel','channel':'ok_sub_futureusd_eos_kline_quarter_6hour'}")
+        self.send("{'event':'addChannel','channel':'ok_sub_futureusd_eos_kline_quarter_12hour'}")
+        self.send("{'event':'addChannel','channel':'ok_sub_futureusd_eos_kline_quarter_day'}")
+        
     #subscribe okcoin.com future depth
     #self.send("{'event':'addChannel','channel':'ok_sub_futureusd_ltc_depth_next_week_20','binary':'true'}")
 
