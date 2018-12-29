@@ -166,6 +166,18 @@ def on_open(self):
         self.send("{'event':'addChannel','channel':'ok_sub_futureusd_bch_kline_quarter_12hour'}")
         self.send("{'event':'addChannel','channel':'ok_sub_futureusd_bch_kline_quarter_day'}")
 
+    if 'bsv' in options.coin:
+        self.send("{'event':'addChannel','channel':'ok_sub_futureusd_bsv_kline_quarter_1min'}")
+        self.send("{'event':'addChannel','channel':'ok_sub_futureusd_bsv_kline_quarter_5min'}")    
+        #self.send("{'event':'addChannel','channel':'ok_sub_futureusd_bsv_kline_quarter_15min'}")
+        self.send("{'event':'addChannel','channel':'ok_sub_futureusd_bsv_kline_quarter_30min'}")        
+        self.send("{'event':'addChannel','channel':'ok_sub_futureusd_bsv_kline_quarter_1hour'}")
+        #self.send("{'event':'addChannel','channel':'ok_sub_futureusd_bsv_kline_quarter_2hour'}")
+        self.send("{'event':'addChannel','channel':'ok_sub_futureusd_bsv_kline_quarter_4hour'}")    
+        #self.send("{'event':'addChannel','channel':'ok_sub_futureusd_bsv_kline_quarter_6hour'}")
+        self.send("{'event':'addChannel','channel':'ok_sub_futureusd_bsv_kline_quarter_12hour'}")
+        self.send("{'event':'addChannel','channel':'ok_sub_futureusd_bsv_kline_quarter_day'}")
+
     if 'eth' in options.coin:
         self.send("{'event':'addChannel','channel':'ok_sub_futureusd_eth_kline_quarter_1min'}")
         self.send("{'event':'addChannel','channel':'ok_sub_futureusd_eth_kline_quarter_5min'}")    
